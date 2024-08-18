@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 
 function App() {
   const [password, setPassword] = useState("")
   const [clipboard, setClipboard] = useState("Copy")
-  const [length, setLength] = useState(9)
+  const [length, setLength] = useState(8)
   const [number, setNumber] = useState(false)
   const [character, setCharacter] = useState(false)
   const [lowercase, setLowercase] = useState(false)
@@ -28,6 +28,12 @@ function App() {
 
     setPassword(pass)
   }
+
+
+  // useEffect
+  useEffect(()=>{
+    generatePassword()
+  },[setPassword ,length, number, character, lowercase])
 
   return(
 
@@ -71,7 +77,6 @@ function App() {
                   min={4} 
                   onChange={e=> {
                     setLength(e.target.value)
-                    generatePassword()
                   }}
                   readOnly/>
 
@@ -84,9 +89,7 @@ function App() {
                       id="lowercase"
                       className="w-5 h-5 mr-2 relative top-1" 
                       onChange={()=> {
-                        // !lowercase ? setLowercase(true): setLowercase(false)
                         setLowercase((prev) => !prev)
-                        generatePassword()
                       }}
                       />
                       
@@ -100,9 +103,7 @@ function App() {
                       id="character"
                       className="w-5 h-5 mr-2 relative top-1" 
                       onChange={()=> {
-                        // !character ? setCharacter(true): setCharacter(false)
                         setCharacter((prev) => !prev)
-                        generatePassword()
                       }}
                       />
                       
@@ -115,9 +116,7 @@ function App() {
                       id="number"
                       className="w-5 h-5 mr-2 relative top-1"
                       onChange={()=> {
-                        // !number ? setNumber(true): setNumber(false)
                         setNumber((prev) => !prev)
-                        generatePassword()
                       }}
                       />
                       
